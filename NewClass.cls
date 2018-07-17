@@ -15,10 +15,7 @@ public class NewClass {
     return true;
   }
 
-  public void terribleCode(Integer param){
-    param = 1;
-    param = param;
-  }
+  public void terribleCode(Integer param){}
 
 
 
