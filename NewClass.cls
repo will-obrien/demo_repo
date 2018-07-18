@@ -20,6 +20,8 @@ public class NewClass {
     param = param;
   }
 
+  private void unusedAndUncomm() {}
+
 
 
 
