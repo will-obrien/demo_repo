@@ -5,7 +5,7 @@
     final String operation = operationDate.get(0);
     date fechaElegida;
     try {
-      switch on operation {  wa
+      switch on operation {  //NOSONAR
         when 'TODAY' {
           fechaElegida = Date.today();
         }
