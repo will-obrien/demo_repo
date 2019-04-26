@@ -11,7 +11,8 @@ public class NewClass {
     newField = value;
     value = 5;
   }
-
+  
+  // comment \ca for TST3 as domain data was loaded with \ca and \us
   
   private void unused3(){}
   private void unused4(){}
