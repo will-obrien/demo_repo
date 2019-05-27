@@ -42,6 +42,9 @@
     return fechaElegida;
   }
     
-    private void addmethod(){}
+    private void addmethod(Integer param){
+      //commented af
+      param = 6;
+    }
 
   }
