@@ -1,5 +1,6 @@
   public global with sharing class MyClass {
   
+    //comment kick off
   private date obtainDate(Integer contador) {
     list<String> operationDate = actionsList.get(contador).split(':');
     final String operation = operationDate.get(0);
