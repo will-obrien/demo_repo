@@ -30,7 +30,7 @@ public class NewClass {
 
   
   public void terribleCode(Integer param){
-    
+    //New Comment
   }
 
   // Best practice: user-friendly error message provided by an AuraHandledException
