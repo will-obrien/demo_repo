@@ -1,12 +1,25 @@
+/*
+  *
+  * large header comment
+  *
+  */
 public class NewClass {
 
   Integer newField;
 
   public NewClass(Integer value){
     newField = value;
+    value = 5;
   }
-
-  private void unusedMethod(){}
+  
+  // comment \ca for TST3 as domain data was loaded with \ca and \us
+  
+  private void unused3(){}
+  private void unused4(){}
+  private void unused5(){}
+  private void unused6(){}
+  private void unused7(){}
+  
 
   /*
   * This is fine.
