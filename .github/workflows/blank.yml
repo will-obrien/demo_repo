@@ -5,13 +5,15 @@ on: [push]
 jobs:
   build:
 
-    runs-on: frekele/ant 
+    runs-on: ubuntu-latest 
 
     steps:
     - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
     - name: Run a multi-line script
       run: |
-        java -version
-        ant -version
+        wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
+        mkdir sfdx
+        tar xJf sfdx-linux-amd64.tar.xz -C sfdx --strip-components 1
+        ./sfdx/install
+
+ 
