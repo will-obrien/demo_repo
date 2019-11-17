@@ -19,7 +19,10 @@ public class NewClass {
   private void unused5(){}
   private void unused6(){}
   private void unused7(){}
-  
+  private void unused7(){}
+  private void unused7(){}
+  private void unused7(){}
+ 
 
   /*
   * This is fine.
