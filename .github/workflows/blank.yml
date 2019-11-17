@@ -11,11 +11,7 @@ jobs:
     - uses: actions/setup-node@v1.1.0
     - name: Use Node.js
       uses: actions/setup-node@v1
-    - name: Run a multi-line script
-      env:  
-        codescan_org: ci-tests
-        codescan_project_key: gitlab-ci
-        codescan_token: ${{ secrets.codescan_token }}
+    - name: Install SFDX
       run: |
         # By default, the CLI periodically checks for and installs updates.
         # Disable (false) this auto-update check to improve performance of CLI commands.
@@ -51,5 +47,12 @@ jobs:
         echo y|sfdx plugins:install sfdx-codescan-plugin
         # Output the plug-in information
         sfdx plugins
+
+    - name: Run Codescan
+      env:  
+        codescan_org: ci-tests
+        codescan_project_key: gitlab-ci
+        codescan_token: ${{ secrets.codescan_token }}
+      run: |
 
         sfdx codescan:run --token $codescan_token --projectkey $codescan_project_key --organization $codescan_org
