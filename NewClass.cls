@@ -45,6 +45,7 @@ public class NewClass {
   }
 
 private void unused(){}
+//comment
 
 //Comment for empty method
 private void unused2(Integer param){
