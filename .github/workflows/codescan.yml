@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     env:  
       codescan_org: sf-demo
-      codescan_project_key: gitlab-ci
+      codescan_project_key: github-ci
       codescan_token: ${{ secrets.codescan_token }}
 
     steps:
