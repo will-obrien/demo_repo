@@ -67,7 +67,7 @@ jobs:
     - name: Run Codescan On PR
       if: github.event_name == 'pull_request'
       env:  
-        branch_name: ${{ github.ref }}
+        branch_name: ${{ github.head_ref }}
         target: ${{github.base_ref}}
         branch_type: SHORT 
       run: |
