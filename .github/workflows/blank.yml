@@ -35,7 +35,7 @@ jobs:
         # For force:package:version:create, disables automatic updates to the sfdx-project.json file.
         export SFDX_PROJECT_AUTOUPDATE_DISABLE_FOR_PACKAGE_VERSION_CREATE=true
 
-        wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
+        wget -q https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
         mkdir sfdx
         tar xJf sfdx-linux-amd64.tar.xz -C sfdx --strip-components 1
         ./sfdx/install
@@ -52,4 +52,4 @@ jobs:
         # Output the plug-in information
         sfdx plugins
 
-        sfdx codescan:run --token $codescan_token --projectkey $project_key --organization $org_name
+        sfdx codescan:run --token $codescan_token --projectkey $codescan_project_key --organization $codescan_org
