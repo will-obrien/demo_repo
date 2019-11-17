@@ -1,6 +1,10 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:    
+      - master
 
 jobs:
   build:
@@ -54,5 +58,4 @@ jobs:
         codescan_project_key: gitlab-ci
         codescan_token: ${{ secrets.codescan_token }}
       run: |
-
         sfdx codescan:run --token $codescan_token --projectkey $codescan_project_key --organization $codescan_org
