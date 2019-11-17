@@ -3,12 +3,12 @@ name: CI
 on: [push]
 
 jobs:
-  env:  
-    codescan_org: sf-demo
-    codescan_project_key: gitlab-ci
-    codescan_token: ${{ secrets.codescan_token }}
   build:
     runs-on: ubuntu-latest
+    env:  
+      codescan_org: sf-demo
+      codescan_project_key: gitlab-ci
+      codescan_token: ${{ secrets.codescan_token }}
 
     steps:
     - uses: actions/checkout@v1
