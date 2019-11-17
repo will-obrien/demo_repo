@@ -65,7 +65,7 @@ jobs:
         sfdx codescan:run --token $codescan_token --projectkey $codescan_project_key --organization $codescan_org 
 
     - name: Run Codescan On PR
-      if: github.event_name == 'pull_request"
+      if: github.event_name == 'pull_request'
       env:  
         branch_name: ${{ github.ref }}
         target: ${{github.base_ref}}
