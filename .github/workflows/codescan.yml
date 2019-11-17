@@ -1,6 +1,14 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+    - master
+    - feature/**
+  pull_request:
+    branches:
+      - master
+      - feature/**
 
 jobs:
   build:
@@ -16,10 +24,12 @@ jobs:
         ref: ${{ github.ref }}
         base_ref: ${{ github.base_ref }}
         head_ref: ${{ github.head_ref }}
+        event_name: ${{ github.event_name }}
       run: |
         echo $ref
         echo $base_ref
         echo $head_ref
+        echo $event_name
           
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1.1.0
@@ -49,13 +59,13 @@ jobs:
         # Output the plug-in information
         sfdx plugins
 
-    - name: Run Codescan On Master
-      if: github.ref == 'refs/heads/master'
+    - name: Run Codescan On Push
+      if: github.event_name == 'push'
       run: |
         sfdx codescan:run --token $codescan_token --projectkey $codescan_project_key --organization $codescan_org 
 
-    - name: Run Codescan On Branch
-      if: github.base_ref == 'refs/heads/master'
+    - name: Run Codescan On PR
+      if: github.event_name == 'pull_request"
       env:  
         branch_name: ${{ github.ref }}
         target: ${{github.base_ref}}
