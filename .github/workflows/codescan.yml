@@ -40,12 +40,12 @@ jobs:
         sfdx plugins
 
     - name: Run Codescan On Master
-      if: github.ref == "master"
+      if: github.ref == 'master'
       run: |
         sfdx codescan:run --token $codescan_token --projectkey $codescan_project_key --organization $codescan_org 
 
     - name: Run Codescan On Branch
-      if: github.base_ref == "master"
+      if: github.base_ref == 'master'
       env:  
         branch_name: ${{ github.ref }}
         target: ${{github.base_ref}}
