@@ -20,22 +20,8 @@ jobs:
       codescan_token: ${{ secrets.codescan_token }}
 
     steps:
-    - name: Info
-      env:  
-        ref: ${{ github.ref }}
-        base_ref: ${{ github.base_ref }}
-        head_ref: ${{ github.head_ref }}
-        event_name: ${{ github.event_name }}
-      run: |
-        echo $ref
-        echo $base_ref
-        echo $head_ref
-        echo $event_name
-          
     - uses: actions/checkout@v1
-    - uses: actions/setup-node@v1.1.0
-    - name: Use Node.js
-      uses: actions/setup-node@v1
+    - uses: actions/setup-node@v1
     - name: Install SFDX
       env:
         SFDX_AUTOUPDATE_DISABLE: false
@@ -44,21 +30,15 @@ jobs:
         SFDX_PROJECT_AUTOUPDATE_DISABLE_FOR_PACKAGE_CREATE: true
         SFDX_PROJECT_AUTOUPDATE_DISABLE_FOR_PACKAGE_VERSION_CREATE: true
       run: |
+        #install sfdx
         wget -q https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
         mkdir sfdx
         tar xJf sfdx-linux-amd64.tar.xz -C sfdx --strip-components 1
         ./sfdx/install
         export PATH=./sfdx/$(pwd):$PATH
-        # Output CLI version and plug-in information
-        sfdx update
-        sfdx --version
-        sfdx plugins --core
- 
-        # Install the CodeScan plugin using the Salesforce CLI
-        # The echo is to accept that the plugin is unsigned.
+
+        #install codescan plugin
         echo y|sfdx plugins:install sfdx-codescan-plugin
-        # Output the plug-in information
-        sfdx plugins
 
     - name: Run Codescan On Push
       if: github.event_name == 'push'
