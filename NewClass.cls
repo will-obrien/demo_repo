@@ -26,7 +26,9 @@ public class NewClass {
   * This is fine.
   */
   public boolean isBadExample(){
+   if(false){ 
     return true;
+   }
   }
   
   /*
