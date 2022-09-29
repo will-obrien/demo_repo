@@ -22,14 +22,14 @@ jobs:
         uses: codescan-io/codescan-scanner-action@1.3
         with:
           organization: will-o-brien15511
-          projectKey: new-action       
+          projectKey: new-action2       
           login: ${{ secrets.codescan_token }}
       - name: Run Codescan On PR
         if: github.event_name == 'pull_request'
         uses: codescan-io/codescan-scanner-action@1.3
         with:
           organization: will-o-brien15511
-          projectKey: new-action
+          projectKey: new-action2
           login: ${{ secrets.codescan_token }}
           args: |
             sonar.pullrequest.branch=${{github.head_ref}}
