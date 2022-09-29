@@ -21,14 +21,14 @@ jobs:
         if: github.event_name == 'push'
         uses: codescan-io/codescan-scanner-action@1.3
         with:
-          organization: 5a81394e5c679b17810e4301
+          organization: will-o-brien15511
           projectKey: new-action       
           login: ${{ secrets.codescan_token }}
       - name: Run Codescan On PR
         if: github.event_name == 'pull_request'
         uses: codescan-io/codescan-scanner-action@1.3
         with:
-          organization: 5a81394e5c679b17810e4301
+          organization: will-o-brien15511
           projectKey: new-action
           login: ${{ secrets.codescan_token }}
           args: |
