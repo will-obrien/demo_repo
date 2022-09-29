@@ -37,11 +37,6 @@ public class NewClass {
   }
   
 
-  //New comment
-  public void terribleCode(Integer param){ 
-    param = 1;
-  }
-
 private void unused(){}
 
 //Comment for empty method
