@@ -23,7 +23,7 @@ jobs:
       - name: Set the value
         id: step_one
         run: |
-          echo "DIFF=yellow" >> $GITHUB_ENV
+          echo "DIFF=$(git diff --name-only | sed -z 's/\n/\,/g')" >> $GITHUB_ENV
       - name: Use the value
         id: step_two
         run: |
