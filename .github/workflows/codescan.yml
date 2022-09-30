@@ -20,7 +20,8 @@ jobs:
             key: ${{ runner.os }}-sonar
             restore-keys: ${{ runner.os }}-sonar
       - name: Get Diff File List
-        run: echo "$DIFF" && git diff --name-only | sed -z 's/\n/\,/g'
+        #run: echo "$DIFF" && git diff --name-only | sed -z 's/\n/\,/g'
+        run: git --version
         shell: bash
       - name: Run Codescan On Push
         env:
