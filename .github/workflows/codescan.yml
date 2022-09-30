@@ -19,7 +19,6 @@ jobs:
             restore-keys: ${{ runner.os }}-sonar
       - name: Get Diff File List
         run: |
-          #echo "DIFF=$(git diff --name-only | sed -z 's/\n/\,/g')" >> GITHUB_ENV
           DIFF=$(git diff --name-only)
       - name: Run Codescan On Push
         env:
