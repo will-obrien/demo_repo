@@ -25,16 +25,6 @@ jobs:
                 ~/.sonar
             key: ${{ runner.os }}-sonar
             restore-keys: ${{ runner.os }}-sonar
-
-      - name: Set the value
-        id: step_one
-        run: |
-          echo ${{ steps.files.outputs.added_modified }}
-  
-      - name: Use the value
-        id: step_two
-        run: |
-          echo "${{ env.DIFF }}" # This will output 'yellow'
       - name: Run Codescan On Push
         env:
           JAVA_TOOL_OPTIONS: "-Xmx8g"
@@ -57,7 +47,7 @@ jobs:
             sonar.pullrequest.branch=${{github.head_ref}}
             sonar.pullrequest.base=${{github.base_ref}}
             sonar.pullrequest.key=${{github.event.number}}
-            sonar.inclusions=${{ steps.abc.outputs.added_modified }}
+            sonar.inclusions=${{ steps.files.outputs.added_modified }}
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
         with:
