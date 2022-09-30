@@ -21,7 +21,7 @@ jobs:
             restore-keys: ${{ runner.os }}-sonar
       - name: Get Diff File List
         run: |
-          ${env.DIFF}='hello'
+          $DIFF=$(git diff --name-only | sed -z 's/\n/\,/g')
           echo $env.DIFF
         shell: bash
       - name: Run Codescan On Push
