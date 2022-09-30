@@ -19,8 +19,7 @@ jobs:
             restore-keys: ${{ runner.os }}-sonar
       - name: Get Diff File List
         run: |
-          DIFF=$(git diff --name-only)
-          echo "INCLUSIONS=$(sed -z 's/\n/\,/g' $DIFF)" >> $GITHUB_ENV
+          echo "INCLUSIONS=$(sed -z 's/\n/\,/g' $(git diff --name-only))" >> $GITHUB_ENV
         shell: bash
       - name: Run Codescan On Push
         env:
