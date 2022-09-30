@@ -17,9 +17,15 @@ jobs:
                 ~/.sonar
             key: ${{ runner.os }}-sonar
             restore-keys: ${{ runner.os }}-sonar
-      - name: Get Diff File List
+
+      - name: Set the value
+        id: step_one
         run: |
-          DIFF=$(git diff --name-only)
+          echo "action_state=yellow" >> $GITHUB_ENV
+      - name: Use the value
+        id: step_two
+        run: |
+          echo "${{ env.action_state }}" # This will output 'yellow'
       - name: Run Codescan On Push
         env:
           JAVA_TOOL_OPTIONS: "-Xmx8g"
