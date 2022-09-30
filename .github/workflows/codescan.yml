@@ -22,7 +22,7 @@ jobs:
       - name: Get Diff File List
         run: |
           echo "$DIFF"
-          echo "$(git diff --name-only | sed -z 's/\n/\,/g')"
+          git diff --name-only | sed -z 's/\n/\,/g'
         shell: bash
       - name: Run Codescan On Push
         env:
