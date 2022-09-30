@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [master]
 env:
-  DIFF: ''
+  DIFF: '*'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,7 +21,8 @@ jobs:
             restore-keys: ${{ runner.os }}-sonar
       - name: Get Diff File List
         run: |
-          echo $(git diff --name-only | sed -z 's/\n/\,/g')
+          echo "$DIFF"
+          git diff --name-only | sed -z 's/\n/\,/g'
         shell: bash
       - name: Run Codescan On Push
         env:
