@@ -11,8 +11,9 @@ jobs:
       DIFF: ''
     steps:
       - name: Checkout repository
-      - uses: actions/checkout@v2
-      - uses: jitterbit/get-changed-files@v1
+        uses: actions/checkout@v2
+      - name: Changed Files  
+        uses: jitterbit/get-changed-files@v1
         id: abc
         with:
           format: csv
@@ -28,7 +29,7 @@ jobs:
       - name: Set the value
         id: step_one
         run: |
-          echo ${{ steps.files.outputs.all }}
+          echo ${{ steps.abc.outputs.addded_modified }}
   
       - name: Use the value
         id: step_two
