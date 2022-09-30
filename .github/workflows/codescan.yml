@@ -30,7 +30,7 @@ jobs:
       - name: Use the value
         id: step_two
         run: |
-          echo "${{ en$(git diff --name-only | sed -z 's/\n/\,/g')v.DIFF }}" # This will output 'yellow'
+          echo "${{ env.DIFF }}" # This will output 'yellow'
       - name: Run Codescan On Push
         env:
           JAVA_TOOL_OPTIONS: "-Xmx8g"
