@@ -23,7 +23,7 @@ jobs:
       - name: Set the value
         id: step_one
         run: |
-          RESULT=`git diff --name-only | sed -z 's/\n/\,/g'`
+          RESULT=`git diff --name-only`
           echo "$RESULT"
           echo "DIFF=$RESULT" >> $GITHUB_ENV
   
