@@ -19,7 +19,6 @@ jobs:
             restore-keys: ${{ runner.os }}-sonar
       - name: Run Codescan On Push
         env:
-          NODE_OPTIONS: "--max-old-space-size=8192"
           JAVA_TOOL_OPTIONS: "-Xmx8g"
         if: github.event_name == 'push'
         uses: codescan-io/codescan-scanner-action@1.3
@@ -29,7 +28,6 @@ jobs:
           login: ${{ secrets.codescan_token }}
       - name: Run Codescan On PR
         env:
-          NODE_OPTIONS: "--max-old-space-size=8192"
           JAVA_TOOL_OPTIONS: "-Xmx8g"
         if: github.event_name == 'pull_request'
         uses: codescan-io/codescan-scanner-action@1.3
