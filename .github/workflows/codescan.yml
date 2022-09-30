@@ -11,7 +11,12 @@ jobs:
       DIFF: ''
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - uses: jitterbit/get-changed-files@v1
+        id: abc
+        with:
+          format: csv
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Cache files
         uses: actions/cache@v2
         with:
@@ -23,9 +28,7 @@ jobs:
       - name: Set the value
         id: step_one
         run: |
-          RESULT=`git diff --name-only`
-          echo "$RESULT"
-          echo "DIFF=$RESULT" >> $GITHUB_ENV
+          echo ${{ steps.files.outputs.all }}
   
       - name: Use the value
         id: step_two
