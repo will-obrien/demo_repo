@@ -23,7 +23,8 @@ jobs:
       - name: Set the value
         id: step_one
         run: |
-          git diff --name-only | sed -z 's/\n/\,/g'
+          echo $(git diff --name-only | sed -z 's/\n/\,/g')
+          echo "DIFF='fuckthis'" >> $GITHUB_ENV
   
       - name: Use the value
         id: step_two
