@@ -19,8 +19,7 @@ jobs:
             restore-keys: ${{ runner.os }}-sonar
       - name: Get Diff File List
         run: |
-          echo "DIFF=test" >> $GITHUB_ENV
-        shell: bash
+          echo "DIFF=$(git diff --name-only | sed -z 's/\n/\,/g')" >> GITHUB_ENV
       - name: Run Codescan On Push
         env:
           JAVA_TOOL_OPTIONS: "-Xmx8g"
