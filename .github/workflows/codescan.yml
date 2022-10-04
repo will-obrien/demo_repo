@@ -49,7 +49,7 @@ jobs:
             sonar.pullrequest.key=${{github.event.number}}
             sonar.inclusions=${{ steps.files.outputs.added_modified }}
 
-      - name: Check Quality Gate
+
       - shell: bash
         run: |
           # get the status of the quality gate for this 
