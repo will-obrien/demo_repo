@@ -46,17 +46,14 @@ jobs:
             sonar.pullrequest.base=${{github.base_ref}}
             sonar.pullrequest.key=${{github.event.number}}
             sonar.inclusions=${{ steps.files.outputs.added_modified }}
-
-
       - name: Quality Gate Check
         if: github.event_name == 'pull_request'
         env:
           TOKEN: ${{ secrets.codescan_token }}
           PR_KEY: ${{github.event.number}}
+          PROJECT_KEY: new-action
         run: |
-          echo "$PR_KEY"
-          qg_status=$(curl -s -u "$TOKEN": "https://app.codescan.io/api/qualitygates/project_status?projectKey=new-action&pullRequest=$PR_KEY" | jq -r '.projectStatus.status')
-          echo $(curl -s -u "$TOKEN": 'https://app.codescan.io/api/qualitygates/project_status?projectKey=new-action&pullRequest=PR_KEY')
+          qg_status=$(curl -s -u "$TOKEN": "https://app.codescan.io/api/qualitygates/project_status?projectKey=$PROJECT_KEY&pullRequest=$PR_KEY" | jq -r '.projectStatus.status')
           echo "QG Script --> Quality Gate status is ${qg_status}"
 
           if [ "${qg_status}" != "OK" ]; then
