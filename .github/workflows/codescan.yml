@@ -48,6 +48,20 @@ jobs:
             sonar.pullrequest.base=${{github.base_ref}}
             sonar.pullrequest.key=${{github.event.number}}
             sonar.inclusions=${{ steps.files.outputs.added_modified }}
+
+      - name: Check Quality Gate
+        run: |
+          ce_analysis_id=$(curl -s -u $SONAR_ACCESS_TOKEN: $SONAR_INSTANCE/api/ce/task?id=$ce_task_id | jq -r .task.analysisId)
+          echo "QG Script --> Using analysis id of ${ce_analysis_id}"
+
+          # get the status of the quality gate for this analysisId
+          qg_status=$(curl -s -u $SONAR_ACCESS_TOKEN: $SONAR_INSTANCE/api/qualitygates/project_status?projectKey="${github.head_ref}" | jq -r .projectStatus.status)
+          echo "QG Script --> Quality Gate status is ${qg_status}"
+
+          if [ "${qg_status}" != "OK" ]; then
+            echo "QG Script --> Quality gate is not OK - exiting with error"
+            exit 1
+          fi
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
         with:
