@@ -7,8 +7,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      DIFF: ''
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -52,12 +50,12 @@ jobs:
 
       - name: Quality Gate Check
         env:
-          login: ${{ secrets.codescan_token }}
+          TOKEN: ${{ secrets.codescan_token }}
         run: |
           # get the status of the quality gate for this 
-          #qg_status=$(curl -s -u "$CODESCAN_TOKEN": https://app.codescan.io/api/qualitygates/project_status?projectKey=new-action&branch="$GITHUB_HEAD_REF" | jq -r .projectStatus.status)
-          echo $(curl -s -u "$LOGIN": https://app.codescan.io/api/qualitygates/project_status?projectKey=new-action&branch="$GITHUB_HEAD_REF" | jq -r .projectStatus.status)
-          echo "$LOGIN"
+          qg_status=$(curl -s -u "$TOKEN": https://app.codescan.io/api/qualitygates/project_status?projectKey=new-action&branch="$GITHUB_HEAD_REF" | jq -r .projectStatus.status)
+          echo $(curl -s -u "$TOKEN": https://app.codescan.io/api/qualitygates/project_status?projectKey=new-action&branch="$GITHUB_HEAD_REF" | jq -r .projectStatus.status)
+          echo "$TOKEN"
           echo "$GITHUB_HEAD_REF"
           echo "QG Script --> Quality Gate status is ${qg_status}"
 
