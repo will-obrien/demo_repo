@@ -53,7 +53,7 @@ jobs:
           TOKEN: ${{ secrets.codescan_token }}
         run: |
           # get the status of the quality gate for this 
-          qg_status=$(curl -s -u "$TOKEN": https://app.codescan.io/api/qualitygates/project_status?projectKey=new-action&branch="$GITHUB_HEAD_REF" | jq -r .projectStatus.status)
+          qg_status=$(/bin/bash -c `curl -s -u "$TOKEN": https://app.codescan.io/api/qualitygates/project_status?projectKey=new-action&branch="$GITHUB_HEAD_REF" | jq -r .projectStatus.status`)
           echo "$qg_status"
           echo "QG Script --> Quality Gate status is ${qg_status}"
 
