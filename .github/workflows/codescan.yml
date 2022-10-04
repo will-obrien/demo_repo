@@ -50,7 +50,7 @@ jobs:
             sonar.inclusions=${{ steps.files.outputs.added_modified }}
 
 
-      - shell: bash
+      - name: Quality Gate Check
         run: |
           # get the status of the quality gate for this 
           #qg_status=$(curl -s -u "$CODESCAN_TOKEN": https://app.codescan.io/api/qualitygates/project_status?projectKey=new-action&branch="$GITHUB_HEAD_REF" | jq -r .projectStatus.status)
