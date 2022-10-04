@@ -52,7 +52,7 @@ jobs:
       - name: Check Quality Gate
         run: |
           # get the status of the quality gate for this 
-          qg_status=$(curl -s -u ${ secrets.codescan_token }: https://app.codescan.io/api/qualitygates/project_status?projectKey="${github.head_ref}" | jq -r .projectStatus.status)
+          qg_status=$(curl -s -u "$CODESCAN_TOKEN": https://app.codescan.io/api/qualitygates/project_status?projectKey="$GITHUB_HEAD_REF" | jq -r .projectStatus.status)
           echo "QG Script --> Quality Gate status is ${qg_status}"
 
           if [ "${qg_status}" != "OK" ]; then
