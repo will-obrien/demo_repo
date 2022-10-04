@@ -52,13 +52,14 @@ jobs:
       - name: Check Quality Gate
         run: |
           # get the status of the quality gate for this 
-          qg_status=$(echo $(curl -s -u "$CODESCAN_TOKEN": https://app.codescan.io/api/qualitygates/project_status?projectKey=new-action&branch="$GITHUB_HEAD_REF" | jq -r .projectStatus.status))
+          #qg_status=$(curl -s -u "$CODESCAN_TOKEN": https://app.codescan.io/api/qualitygates/project_status?projectKey=new-action&branch="$GITHUB_HEAD_REF" | jq -r .projectStatus.status)
+          curl -s -u "$CODESCAN_TOKEN": https://app.codescan.io/api/qualitygates/project_status?projectKey=new-action&branch="$GITHUB_HEAD_REF" | jq -r .projectStatus.status
           echo "QG Script --> Quality Gate status is ${qg_status}"
 
-          #if [ "${qg_status}" != "OK" ]; then
-           # echo "QG Script --> Quality gate is not OK - exiting with error"
-            #exit 1
-          #fi
+          if [ "${qg_status}" != "OK" ]; then
+            echo "QG Script --> Quality gate is not OK - exiting with error"
+            exit 1
+          fi
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
         with:
