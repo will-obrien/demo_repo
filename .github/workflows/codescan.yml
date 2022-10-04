@@ -55,8 +55,7 @@ jobs:
           PR_KEY: ${{github.event.number}}
         run: |
           echo "$PR_KEY"
-          echo "$GITHUB_EVENT_NUMBER"
-          qg_status=$(curl -s -u "$TOKEN": 'https://app.codescan.io/api/qualitygates/project_status?projectKey=new-action&pullRequest="$PR_KEY"' | jq '.projectStatus.status')
+          qg_status=$(curl -s -u "$TOKEN": 'https://app.codescan.io/api/qualitygates/project_status?projectKey=new-action&pullRequest="$PR_KEY"' | jq -r '.projectStatus.status')
           curl -s -u "$TOKEN": https://app.codescan.io/api/qualitygates/project_status?projectKey=new-action&branch="$GITHUB_HEAD_REF"
           echo "QG Script --> Quality Gate status is ${qg_status}"
 
