@@ -52,11 +52,11 @@ jobs:
         if: github.event_name == 'pull_request'
         env:
           TOKEN: ${{ secrets.codescan_token }}
+          PR_KEY: ${{github.event.number}}
         run: |
-          # get the status of the quality gate for this 
-          echo "$GITHUB_HEAD_REF"
+          echo "$PR_KEY"
           echo "$GITHUB_EVENT_NUMBER"
-          qg_status=$(curl -s -u "$TOKEN": 'https://app.codescan.io/api/qualitygates/project_status?projectKey=new-action&pullRequest="$GITHUB_EVENT_NUMBER"' | jq '.projectStatus.status')
+          qg_status=$(curl -s -u "$TOKEN": 'https://app.codescan.io/api/qualitygates/project_status?projectKey=new-action&pullRequest="$PR_KEY"' | jq '.projectStatus.status')
           curl -s -u "$TOKEN": https://app.codescan.io/api/qualitygates/project_status?projectKey=new-action&branch="$GITHUB_HEAD_REF"
           echo "QG Script --> Quality Gate status is ${qg_status}"
 
