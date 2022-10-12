@@ -46,6 +46,7 @@ jobs:
             sonar.pullrequest.base=${{github.base_ref}}
             sonar.pullrequest.key=${{github.event.number}}
             sonar.inclusions=${{ steps.files.outputs.added_modified }}
+            sonar.log.level=TRACE
       - name: Quality Gate Check
         if: github.event_name == 'pull_request'
         env:
