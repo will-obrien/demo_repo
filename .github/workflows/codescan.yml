@@ -62,6 +62,8 @@ jobs:
             echo "QG Script --> Quality gate is not OK - exiting with error"
             exit 1
           fi
+      - name: Cat SARIF
+        run: cat codescan.sarif
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
         with:
