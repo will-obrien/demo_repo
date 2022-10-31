@@ -10,6 +10,7 @@ public class NewClass {
   public NewClass(Integer value){
     newField = value;
     value = 5;
+   System.debug(value);
   }
   
   // comment \ca for TST3 as domain data was loaded with \ca and \us
