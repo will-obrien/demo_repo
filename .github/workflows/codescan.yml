@@ -63,7 +63,7 @@ jobs:
             exit 1
           fi
       - name: Cat SARIF
-        run: cat codescan.sarif
+        run: echo $(cat codescan.sarif)
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
         with:
