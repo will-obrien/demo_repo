@@ -12,7 +12,7 @@ public class NewClass {
     value = 5;
    System.debug(value);
   }
-  
+  //hellloooo
   // comment \ca for TST3 as domain data was loaded with \ca and \us
   
   private void unused3(){}
