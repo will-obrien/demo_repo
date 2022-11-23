@@ -41,6 +41,7 @@ jobs:
           organization: 5a81394e5c679b17810e4301
           projectKey: new-action
           login: ${{ secrets.codescan_token }}
+          generateSarifFile: true
           args: |
             sonar.pullrequest.branch=${{github.head_ref}}
             sonar.pullrequest.base=${{github.base_ref}}
