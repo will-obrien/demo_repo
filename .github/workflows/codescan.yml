@@ -25,7 +25,7 @@ jobs:
         with:
           organization: will-test85098
           projectKey: funcreview   
-          login: ${{ secrets.codescan_token }}
+          login: ${{ secrets.codescan_token_test }}
           codescanURL: https://test.codescan.io/
       - name: Run Codescan On PR
         env:
@@ -35,7 +35,7 @@ jobs:
         with:
           organization: will-test85098
           projectKey: funcreview
-          login: ${{ secrets.codescan_token }}
+          login: ${{ secrets.codescan_token_test }}
           codescanURL: https://test.codescan.io/
           args: |
             sonar.pullrequest.branch=${{github.head_ref}}
