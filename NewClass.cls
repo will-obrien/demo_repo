@@ -6,7 +6,7 @@
 public class NewClass {
 
   Integer newField;
-
+//thingyee
   public NewClass(Integer value){
     newField = value;
     value = 5;
@@ -41,6 +41,11 @@ private void unused(){}
 
 //Comment for empty method
 private void unused2(Integer param){
+  param = 6;
+}
+ 
+ //Comment for empty method
+private void unused3(Integer param){
   param = 6;
 }
 
