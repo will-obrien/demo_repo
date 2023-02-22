@@ -6,7 +6,7 @@
 public class NewClass {
 
   Integer newField;
-//thingy
+//thingyee
   public NewClass(Integer value){
     newField = value;
     value = 5;
