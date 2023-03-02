@@ -48,9 +48,9 @@ jobs:
         env:
           TOKEN: ${{ secrets.codescan_token }}
           PR_KEY: ${{github.event.number}}
-          PROJECT_KEY: CodeScanDemo
+          PROJECT_KEY: close-pr-check 
         run: |
-          echo  $(curl -s -u "$TOKEN": "https://ea-tool.docusignhq.com/api/qualitygates/project_status?projectKey=$PROJECT_KEY&pullRequest=$PR_KEY")
+          echo  $(curl -s -u "$TOKEN": "https://app.codescan.cio/api/qualitygates/project_status?projectKey=$PROJECT_KEY&pullRequest=$PR_KEY")
           qg_status=$(curl -s -u "$TOKEN": "https://ea-tool.docusignhq.com/api/qualitygates/project_status?projectKey=$PROJECT_KEY&pullRequest=$PR_KEY" | jq -r '.projectStatus.status')
           echo "QG Script --> Quality Gate status is ${qg_status}"
           if [ "${qg_status}" != "OK" ]; then
