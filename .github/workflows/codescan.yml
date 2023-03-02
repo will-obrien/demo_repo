@@ -2,10 +2,10 @@ name: Run CodeScan
 
 on:
   pull_request:
-    branches: [main]
+    branches: [close-pr]
     types: [opened]
   push:
-    branches: [main]
+    branches: [close-pr]
 
 jobs:
   run:
