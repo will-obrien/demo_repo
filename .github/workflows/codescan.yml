@@ -36,10 +36,31 @@ jobs:
             sonar.pullrequest.branch=${{github.head_ref}}
             sonar.pullrequest.base=${{github.base_ref}}
             sonar.pullrequest.key=${{github.event.number}}
+            
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: codescan.sarif
+          
+      - name: Quality Gate Check
+        id: qgcheck
+        if: github.event_name == 'pull_request'
+        env:
+          TOKEN: ${{ secrets.codescan_token }}
+          PR_KEY: ${{github.event.number}}
+          PROJECT_KEY: CodeScanDemo
+        run: |
+          echo  $(curl -s -u "$TOKEN": "https://ea-tool.docusignhq.com/api/qualitygates/project_status?projectKey=$PROJECT_KEY&pullRequest=$PR_KEY")
+          qg_status=$(curl -s -u "$TOKEN": "https://ea-tool.docusignhq.com/api/qualitygates/project_status?projectKey=$PROJECT_KEY&pullRequest=$PR_KEY" | jq -r '.projectStatus.status')
+          echo "QG Script --> Quality Gate status is ${qg_status}"
+          if [ "${qg_status}" != "OK" ]; then
+            echo "QG Script --> Quality gate is not OK - exiting with error"
+            exit 1
+          fi
 
       # Close PR
       - name: "Close PR"
-        if:  ${{ github.event_name == 'pull_request' && failure() }} 
+        if:  ${{ failure() && steps.qgcheck.outcome == 'failure' }} 
         uses: peter-evans/close-pull@v2
         with:
           comment: "Closing PR because of failed Quality Gate."
