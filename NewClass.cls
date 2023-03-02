@@ -44,7 +44,7 @@ private void unused2(Integer param){
   param = 6;
 }
  
- //Comment for empty method
+ //Comment for empty method, very good
 private void unused44(Integer param){
   param = 6;
 }
