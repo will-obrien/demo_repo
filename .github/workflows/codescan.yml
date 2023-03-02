@@ -39,7 +39,7 @@ jobs:
 
       # Close PR
       - name: "Close PR"
-        if: github.event_name == 'pull_request' && ${{ failure() }} 
+        if:  ${{ github.event_name == 'pull_request' && failure() }} 
         uses: peter-evans/close-pull@v2
         with:
           comment: "Closing PR because of failed Quality Gate."
