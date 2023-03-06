@@ -21,22 +21,24 @@ jobs:
         env:
           JAVA_TOOL_OPTIONS: "-Xmx8g"
         if: github.event_name == 'push'
-        uses: codescan-io/codescan-scanner-action@1.3
+        uses: codescan-io/codescan-scanner-action@t26
         with:
           organization: will-test85098
           projectKey: funcreview   
           login: ${{ secrets.codescan_token_test }}
           codescanURL: https://test.codescan.io/
+          failPipeWhenRedQualityGate: true
       - name: Run Codescan On PR
         env:
           JAVA_TOOL_OPTIONS: "-Xmx8g"
         if: github.event_name == 'pull_request'
-        uses: codescan-io/codescan-scanner-action@1.3
+        uses: codescan-io/codescan-scanner-action@t26
         with:
           organization: will-test85098
           projectKey: funcreview
           login: ${{ secrets.codescan_token_test }}
           codescanURL: https://test.codescan.io/
+          failPipeWhenRedQualityGate: true
           args: |
             sonar.pullrequest.branch=${{github.head_ref}}
             sonar.pullrequest.base=${{github.base_ref}}
