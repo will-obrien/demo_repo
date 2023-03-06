@@ -18,22 +18,22 @@ jobs:
       # Run CodeScan
       - name: Run Codescan On Push
         if: github.event_name == 'push'
-        uses: codescan-io/codescan-scanner-action@t26
+        uses: codescan-io/codescan-scanner-action@t28
         with:
           organization: 5a81394e5c679b17810e4301
           projectKey: close-pr-check      
           login: ${{ secrets.codescan_token }}
-          failPipeOnRedQualityGate: true
+          failOnRedQualityGate: true
 
       - name: Run Codescan On PR
         if: github.event_name == 'pull_request'
-        uses: codescan-io/codescan-scanner-action@t26
+        uses: codescan-io/codescan-scanner-action@t28
         with:
           organization: 5a81394e5c679b17810e4301
           projectKey: close-pr-check
           login: ${{ secrets.codescan_token }}
           generateSarifFile: true
-          failPipeOnRedQualityGate: true
+          failOnRedQualityGate: true
 
           args: |
             sonar.pullrequest.branch=${{github.head_ref}}
