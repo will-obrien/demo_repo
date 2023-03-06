@@ -57,6 +57,8 @@ private void unused22(Integer param){
  private void unused222(Integer param){
   param = 6;
 }
-
+ private void unused2222(Integer param){
+  param = 6;
+}
 
 }
