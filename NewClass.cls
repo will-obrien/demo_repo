@@ -15,6 +15,7 @@ public class NewClass {
   // comment \ca for TST3 as domain data was loaded with \ca and \us
   
   private void unused3(){}
+  private void unused22(){}
   private void unused4(){}
   private void unused5(){}
   private void unused6(){}
