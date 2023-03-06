@@ -18,20 +18,23 @@ jobs:
       # Run CodeScan
       - name: Run Codescan On Push
         if: github.event_name == 'push'
-        uses: codescan-io/codescan-scanner-action@1.3
+        uses: codescan-io/codescan-scanner-action@t26
         with:
           organization: 5a81394e5c679b17810e4301
           projectKey: close-pr-check      
           login: ${{ secrets.codescan_token }}
+          failPipeOnRedQualityGate: true
 
       - name: Run Codescan On PR
         if: github.event_name == 'pull_request'
-        uses: codescan-io/codescan-scanner-action@1.3
+        uses: codescan-io/codescan-scanner-action@t26
         with:
           organization: 5a81394e5c679b17810e4301
           projectKey: close-pr-check
           login: ${{ secrets.codescan_token }}
           generateSarifFile: true
+          failPipeOnRedQualityGate: true
+
           args: |
             sonar.pullrequest.branch=${{github.head_ref}}
             sonar.pullrequest.base=${{github.base_ref}}
@@ -42,21 +45,21 @@ jobs:
         with:
           sarif_file: codescan.sarif
           
-      - name: Quality Gate Check
-        id: qgcheck
-        if: github.event_name == 'pull_request'
-        env:
-          TOKEN: ${{ secrets.codescan_token }}
-          PR_KEY: ${{github.event.number}}
-          PROJECT_KEY: close-pr-check 
-        run: |
-          echo  $(curl -s -u "$TOKEN": "https://app.codescan.cio/api/qualitygates/project_status?projectKey=$PROJECT_KEY&pullRequest=$PR_KEY")
-          qg_status=$(curl -s -u "$TOKEN": "https://ea-tool.docusignhq.com/api/qualitygates/project_status?projectKey=$PROJECT_KEY&pullRequest=$PR_KEY" | jq -r '.projectStatus.status')
-          echo "QG Script --> Quality Gate status is ${qg_status}"
-          if [ "${qg_status}" != "OK" ]; then
-            echo "QG Script --> Quality gate is not OK - exiting with error"
-            exit 1
-          fi
+#       - name: Quality Gate Check
+#         id: qgcheck
+#         if: github.event_name == 'pull_request'
+#         env:
+#           TOKEN: ${{ secrets.codescan_token }}
+#           PR_KEY: ${{github.event.number}}
+#           PROJECT_KEY: close-pr-check 
+#         run: |
+#           echo  $(curl -s -u "$TOKEN": "https://app.codescan.cio/api/qualitygates/project_status?projectKey=$PROJECT_KEY&pullRequest=$PR_KEY")
+#           qg_status=$(curl -s -u "$TOKEN": "https://ea-tool.docusignhq.com/api/qualitygates/project_status?projectKey=$PROJECT_KEY&pullRequest=$PR_KEY" | jq -r '.projectStatus.status')
+#           echo "QG Script --> Quality Gate status is ${qg_status}"
+#           if [ "${qg_status}" != "OK" ]; then
+#             echo "QG Script --> Quality gate is not OK - exiting with error"
+#             exit 1
+#           fi
 
       # Close PR
       - name: "Close PR"
