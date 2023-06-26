@@ -1,9 +1,9 @@
 name: CodeScan GitHub Actions
 on:
   push:
-    branches: [funcreview]
+    branches: [funcreviewtwo]
   pull_request:
-    branches: [funcreview]
+    branches: [funcreviewtwo]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,7 +24,7 @@ jobs:
         uses: codescan-io/codescan-scanner-action@t26
         with:
           organization: will-test85098
-          projectKey: funcreview   
+          projectKey: funcreviewtwo   
           login: ${{ secrets.codescan_token_test }}
           codescanURL: https://test.codescan.io/
           failPipeWhenRedQualityGate: true
@@ -35,7 +35,7 @@ jobs:
         uses: codescan-io/codescan-scanner-action@t26
         with:
           organization: will-test85098
-          projectKey: funcreview
+          projectKey: funcreviewtwo
           login: ${{ secrets.codescan_token_test }}
           codescanURL: https://test.codescan.io/
           failPipeWhenRedQualityGate: true

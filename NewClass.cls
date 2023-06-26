@@ -43,6 +43,10 @@ private void unused(){}
 private void unused2(Integer param){
   param = 6;
 }
+ 
+ private void unused3(Integer param){
+  param = 6;
+}
 
 
 }
