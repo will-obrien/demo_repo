@@ -1,4 +1,4 @@
-name: CodeScan GitHub Actions
+name: CI
 on:
   push:
     branches: [master]
@@ -10,6 +10,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Changed Files  
+        uses: jitterbit/get-changed-files@v1
+        id: files
+        with:
+          format: csv
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Cache files
         uses: actions/cache@v2
         with:
@@ -21,24 +27,31 @@ jobs:
         env:
           JAVA_TOOL_OPTIONS: "-Xmx8g"
         if: github.event_name == 'push'
-        uses: codescan-io/codescan-scanner-action@1.3
+        uses: codescan-io/codescan-scanner-action@1.4
         with:
-          organization: 5a81394e5c679b17810e4301
-          projectKey: new-action   
-          login: ${{ secrets.codescan_token }}
+          organization: aligntechnology
+          projectKey: salesforce-align-SFDX-QA
+          codeScanUrl: https://aligntech.codescan.io/
+          login: ${{ secrets.CODESCAN_TOKEN }}
+          args: |
+            sonar.inclusions=**/aura/**,**/applications/**,**/classes/**,**/components/**,**/workflows/**,**/flows/**,**/lwc/**,**/objects/**,**/pages/**,**/profiles/**,**/settings/**,**/sharingRules/**,**/triggers/**,**/permissionsets/**
       - name: Run Codescan On PR
         env:
           JAVA_TOOL_OPTIONS: "-Xmx8g"
-        if: github.event_name == 'pull_request'
-        uses: codescan-io/codescan-scanner-action@1.3
+        if: github.event_name == 'pull_request' && ${{ steps.files.outputs.added_modified }} != null
+        uses: codescan-io/codescan-scanner-action@1.4
         with:
-          organization: 5a81394e5c679b17810e4301
-          projectKey: new-action
-          login: ${{ secrets.codescan_token }}
+          organization: aligntechnology
+          projectKey: salesforce-align-SFDX-QA
+          codeScanUrl: https://aligntech.codescan.io/
+          login: ${{ secrets.CODESCAN_TOKEN }}
+          pollingTimeoutSec: 900000
+          generateSarifFile: true
           args: |
             sonar.pullrequest.branch=${{github.head_ref}}
             sonar.pullrequest.base=${{github.base_ref}}
             sonar.pullrequest.key=${{github.event.number}}
+            sonar.inclusions=${{ steps.files.outputs.added_modified }}
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
         with:

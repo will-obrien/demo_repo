@@ -1,6 +1,6 @@
 /*
   *
-  * large header comment
+  * large header commentzzzzz
   *
   */
 public class NewClass {
@@ -10,8 +10,9 @@ public class NewClass {
   public NewClass(Integer value){
     newField = value;
     value = 5;
+   System.debug(value);
   }
-  
+  //hellloooo
   // comment \ca for TST3 as domain data was loaded with \ca and \us
   
   private void unused3(){}
@@ -26,6 +27,11 @@ public class NewClass {
   * This is fine.
   */
   public boolean isBadExample(){
+    return true;
+  }
+ 
+  public boolean sdfsdfsd(Integer param){
+    param =6;
     return true;
   }
   
