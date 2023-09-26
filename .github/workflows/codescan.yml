@@ -29,21 +29,21 @@ jobs:
         if: github.event_name == 'push'
         uses: codescan-io/codescan-scanner-action@1.4
         with:
-          organization: aligntechnology
-          projectKey: salesforce-align-SFDX-QA
-          codeScanUrl: https://aligntech.codescan.io/
+          organization: 5a81394e5c679b17810e4301
+          projectKey: actiontest
+          codeScanUrl: https://app.codescan.io/
           login: ${{ secrets.CODESCAN_TOKEN }}
           args: |
             sonar.inclusions=**/aura/**,**/applications/**,**/classes/**,**/components/**,**/workflows/**,**/flows/**,**/lwc/**,**/objects/**,**/pages/**,**/profiles/**,**/settings/**,**/sharingRules/**,**/triggers/**,**/permissionsets/**
       - name: Run Codescan On PR
         env:
           JAVA_TOOL_OPTIONS: "-Xmx8g"
-        if: github.event_name == 'pull_request' && ${{ steps.files.outputs.added_modified }} != null
+        if: github.event_name == 'pull_request' && ${{ steps.files.outputs.added_modified }} != ''
         uses: codescan-io/codescan-scanner-action@1.4
         with:
-          organization: aligntechnology
-          projectKey: salesforce-align-SFDX-QA
-          codeScanUrl: https://aligntech.codescan.io/
+          organization: 5a81394e5c679b17810e4301
+          projectKey: actiontest
+          codeScanUrl: https://app.codescan.io/
           login: ${{ secrets.CODESCAN_TOKEN }}
           pollingTimeoutSec: 900000
           generateSarifFile: true
