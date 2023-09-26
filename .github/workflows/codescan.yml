@@ -38,7 +38,7 @@ jobs:
       - name: Run Codescan On PR
         env:
           JAVA_TOOL_OPTIONS: "-Xmx8g"
-        if: github.event_name == 'pull_request' && ${{ steps.files.outputs.added_modified != '' }}
+        if: github.event_name == 'pull_request' && steps.files.outputs.added_modified != null
         uses: codescan-io/codescan-scanner-action@1.4
         with:
           organization: 5a81394e5c679b17810e4301
