@@ -33,8 +33,6 @@ jobs:
           projectKey: actiontest
           codeScanUrl: https://app.codescan.io/
           login: ${{ secrets.CODESCAN_TOKEN }}
-          args: |
-            sonar.inclusions=**/aura/**,**/applications/**,**/classes/**,**/components/**,**/workflows/**,**/flows/**,**/lwc/**,**/objects/**,**/pages/**,**/profiles/**,**/settings/**,**/sharingRules/**,**/triggers/**,**/permissionsets/**
       - name: Run Codescan On PR
         env:
           JAVA_TOOL_OPTIONS: "-Xmx8g"
