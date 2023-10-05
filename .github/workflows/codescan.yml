@@ -33,6 +33,8 @@ jobs:
           projectKey: actiontest
           codeScanUrl: https://app.codescan.io/
           login: ${{ secrets.CODESCAN_TOKEN }}
+          args: |
+            sonar.projectVersion=new
       - name: Run Codescan On PR
         env:
           JAVA_TOOL_OPTIONS: "-Xmx8g"
