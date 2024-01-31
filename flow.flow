@@ -34,6 +34,13 @@
         <isOutput>false</isOutput>
     </variables>
     <variables>
+        <name>myUniquelyDummyVariable3</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
         <name>myUniquelyDummyVariable2</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
