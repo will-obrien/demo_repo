@@ -23,6 +23,11 @@ jobs:
                 ~/.sonar
             key: ${{ runner.os }}-sonar
             restore-keys: ${{ runner.os }}-sonar
+      - name: SETUP JAVA
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          java-version: '21'
       - name: Run Codescan On Push
         env:
           JAVA_TOOL_OPTIONS: "-Xmx8g"
