@@ -1,0 +1,85 @@
+# This is a main workflow to trigger on pull requests for DX repositories
+
+name: Pull Request Scan (DX) - CODESCAN
+
+# Controls when the workflow will run
+on:
+  pull_request:
+    branches:
+      - master
+    types: [opened, synchronize, reopened]
+env:
+  blocking_severity: 2
+  csv_properties: --property package=false --property problem=false --property ruleSet=false
+  hidden_comment_prefix: <!--dtc-scanner-->
+
+jobs:
+  scan-codescan-pull-request:
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+
+    runs-on: ubuntu-latest
+
+    # outputs:
+    #   blockers_text: ${{ steps.csv_blockers.outputs.content }}
+    #   blockers_count: ${{ steps.evaluate_violations_blockers.outputs.blockers_count }}
+
+    steps:
+      # Check out the source code
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Cache files
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.sonar
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: SETUP JAVA
+        uses: actions/setup-java@v4
+        with:
+         distribution: 'corretto'
+         java-version: '21'
+
+      ####################### ALL VIOLATIONS CHECK
+
+      - name: Run CodeScan scan action
+        id: codescan_pr
+        if: github.event_name == 'pull_request'
+        uses: codescan-io/codescan-scanner-action@1.5
+        with:
+          login: squ_929e2d08d2e52faff06446b7f2a3f8a403c4a947
+          projectKey: va-salesforce-pie-dx-qa-one
+          organization: 442
+          codeScanUrl: https://app.codescan.io
+          scanChangedFilesOnly: true
+          failOnRedQualityGate: true
+          generateReportFile: true
+          generateSarifFile: false
+          args: |
+            sonar.pullrequest.branch=${{github.head_ref}}
+            sonar.pullrequest.base=${{github.base_ref}}
+            sonar.pullrequest.key=${{github.event.number}}
+            sonar.projectName=${{ github.event.repository.name }}
+            sonar.exclusions=**/.sf/**,**/.sfdx/**,**/node_modules/**
+            sonar.token=squ_929e2d08d2e52faff06446b7f2a3f8a403c4a947
+            sf.sfmeta.suffixes=remoteSite-meta.xml,permissionset-meta.xml
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JAVA_TOOL_OPTIONS: "-Xmx8g"
+
+          #sonar.login=${{ vars.TEMP_CODESCAN_LOGIN }}
+          #sonar.password=${{ secrets.TEMP_CODESCAN_PASSWORD }}
+      #   sonar.exclusions=scripts/**,**/aura/**/*.css,**/lwc/**/*.css,**/analyticscc__*,**/skuid__*,**/agf__*,**/ExAM__*,**/dupcheck__*,**/rh2__*,**/rhx__*,**/cnx*,**/SDOC*,**/rhx*,**/contentassets/**,**/dashboards/**,**/documents/**,**/eclair/**,**/email/**,**/emailservices/**,**/networkBranding/**,**/reports/**,**/wave/**,**/staticresources/*,**/ADM*,**/usf*,**/welkins_table*,**/sortablegrid*,**/CMTD*,**/DynPro*,**/LIMITMON*,**/ca_only*,**/flowmagic*,**/ear*,**/followrpt*,**/MPM4*,**/copado*,**/emptracing*,**/HealthCloudGA
+      #   sonar.verbose=true
+      #   sonar.projectName=${{ github.event.repository.name }}
+      - name: Upload violations file in SARIF format
+        if: github.event_name == 'pull_request'
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: codescan.sarif
+          category: CodeScan
