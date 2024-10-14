@@ -32,7 +32,7 @@ jobs:
         env:
           JAVA_TOOL_OPTIONS: "-Xmx8g"
         if: github.event_name == 'push'
-        uses: codescan-io/codescan-scanner-action@1.4
+        uses: codescan-io/codescan-scanner-action@1.5
         with:
           organization: 5a81394e5c679b17810e4301
           projectKey: actiontest
@@ -44,7 +44,7 @@ jobs:
         env:
           JAVA_TOOL_OPTIONS: "-Xmx8g"
         if: github.event_name == 'pull_request' && steps.files.outputs.added_modified != null
-        uses: codescan-io/codescan-scanner-action@1.4
+        uses: codescan-io/codescan-scanner-action@1.5
         with:
           organization: 5a81394e5c679b17810e4301
           projectKey: actiontest
