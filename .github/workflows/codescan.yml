@@ -34,10 +34,10 @@ jobs:
         if: github.event_name == 'push'
         uses: codescan-io/codescan-scanner-action@1.5
         with:
-          organization: 442
+          organization: willtesting
           projectKey: actiontest
-          codeScanUrl: https://app.codescan.io/
-          login: ${{ secrets.CODESCAN_TOKEN }}
+          codeScanUrl: https://appgov.codescan.io/
+          login: squ_b6480ee93cb0f047ce9974604bf27beec070d640
           args: |
             sonar.projectVersion=new
       - name: Run Codescan On PR
@@ -46,10 +46,10 @@ jobs:
         if: github.event_name == 'pull_request' && steps.files.outputs.added_modified != null
         uses: codescan-io/codescan-scanner-action@1.5
         with:
-          organization: 442
+          organization: willtesting
           projectKey: actiontest
-          codeScanUrl: https://app.codescan.io/
-          login: ${{ secrets.CODESCAN_TOKEN }}
+          codeScanUrl: https://appgov.codescan.io/
+          login: squ_b6480ee93cb0f047ce9974604bf27beec070d640
           pollingTimeoutSec: 900000
           generateSarifFile: true
           args: |
