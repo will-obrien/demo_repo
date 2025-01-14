@@ -53,7 +53,7 @@ jobs:
             sonar.pullrequest.key=${{github.event.number}}
             sonar.inclusions=${{ steps.files.outputs.added_modified }}
       - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: codescan.sarif
 
