@@ -23,21 +23,16 @@ jobs:
                 ~/.sonar
             key: ${{ runner.os }}-sonar
             restore-keys: ${{ runner.os }}-sonar
-      - name: SETUP JAVA
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'corretto'
-          java-version: '17'
       - name: Run Codescan On Push
         env:
           JAVA_TOOL_OPTIONS: "-Xmx8g"
         if: github.event_name == 'push'
         uses: codescan-io/codescan-scanner-action@1.6
         with:
-          organization: willtesting
+          organization: 442
           projectKey: actiontest
-          codeScanUrl: https://appgov.codescan.io/
-          login: squ_b6480ee93cb0f047ce9974604bf27beec070d640
+          codeScanUrl: https://app.codescan.io/
+          login: ${{ secrets.CODESCAN_TOKEN }}
           args: |
             sonar.projectVersion=new
       - name: Run Codescan On PR
@@ -46,10 +41,10 @@ jobs:
         if: github.event_name == 'pull_request' && steps.files.outputs.added_modified != null
         uses: codescan-io/codescan-scanner-action@1.6
         with:
-          organization: willtesting
+          organization: 442
           projectKey: actiontest
-          codeScanUrl: https://appgov.codescan.io/
-          login: squ_b6480ee93cb0f047ce9974604bf27beec070d640
+          codeScanUrl: https://app.codescan.io/
+          login: ${{ secrets.CODESCAN_TOKEN }}
           pollingTimeoutSec: 900000
           generateSarifFile: true
           args: |
