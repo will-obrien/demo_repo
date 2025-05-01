@@ -54,5 +54,9 @@ private void unused3(Integer param){
   param = 6;
 }
 
+private void unused4(Integer param){
+  param = 6;
+}
+
 
 }
